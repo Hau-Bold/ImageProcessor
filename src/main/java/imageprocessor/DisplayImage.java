@@ -244,6 +244,7 @@ public class DisplayImage extends JFrame implements ActionListener {
 		}
 
 		else if (o.equals(buttonGeneratePowerOfTwoStatistics)) {
+
 			int[] frequencies = Utils.countFrequencies(bufferedImage);
 
 			frequencies = Utils.balanceToPowerOfTwoFrequencies(frequencies);

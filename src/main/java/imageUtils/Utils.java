@@ -994,11 +994,12 @@ public class Utils {
 				Color current = new Color(bufferedImage.getRGB(i, j));
 
 				int rgb = current.getRGB();
-
+				int alpha = (rgb >> 24) & 0xff;
 				int red = (rgb >> 16) & 0xff;
 				int green = (rgb >> 8) & 0xff;
 				int blue = rgb & 0xff;
 
+				response[alpha]++;
 				response[red]++;
 				response[green]++;
 				response[blue]++;
@@ -1125,15 +1126,13 @@ public class Utils {
 	public static int[] balanceToPowerOfTwoFrequencies(int[] frequencies) {
 		int M = getSumOfFrequencies(frequencies);
 
-		int logTwoDenominator = getNearestPowerOfTwo(M);
-
-		int powerOfTwo = 2 << logTwoDenominator;
+		int powerOfTwo = getNearestPowerOfTwo(M);
 
 		for (int i = 0; i < frequencies.length; i++) {
 
 			int tmp = frequencies[i];
 			int powerOfTwotmp = getNearestPowerOfTwo(tmp);
-			frequencies[i] = 2 << powerOfTwotmp;
+			frequencies[i] = powerOfTwotmp;
 		}
 
 		// for (int item : frequencies) {
@@ -1177,7 +1176,7 @@ public class Utils {
 
 		result = Math.abs(M - lowerBound) > Math.abs(M - upperBound) ? upperBound : lowerBound;
 
-		return (int) (Math.log(result) / Math.log(2));
+		return result;
 	}
 
 }
