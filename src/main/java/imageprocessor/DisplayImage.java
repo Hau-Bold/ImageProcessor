@@ -2,7 +2,6 @@ package imageprocessor;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -34,7 +33,7 @@ public class DisplayImage extends JFrame implements ActionListener {
 	private JScrollPane scrollPane;
 	private JPanel panelSouth;
 	private JButton buttonSaveImage, buttonSelectColor, buttonGenerateStatistics, buttonGenerateBalancedStatistics,
-			buttonGeneratePowerOfTwoStatistics;
+			buttonGeneratePowerOfTwoStatistics, buttonSharpImage;
 	private JLabel labelColor = new JLabel("Choose Color");
 	public static Color color;
 	private static JComboBox<String> combobox_Preconditioners;
@@ -94,6 +93,9 @@ public class DisplayImage extends JFrame implements ActionListener {
 		buttonGeneratePowerOfTwoStatistics = new JButton(Constants.GENERATE_POWEROFTWO_STATISTCS);
 		buttonGeneratePowerOfTwoStatistics.addActionListener(this);
 
+		buttonSharpImage = new JButton(Constants.SHARP_IMAGE);
+		buttonSharpImage.addActionListener(this);
+
 		panelSouth = new JPanel(new GridLayout(1, 7));
 
 		panelSouth.add(buttonSaveImage);
@@ -102,20 +104,21 @@ public class DisplayImage extends JFrame implements ActionListener {
 		panelSouth.add(buttonGenerateStatistics);
 		panelSouth.add(buttonGenerateBalancedStatistics);
 		panelSouth.add(buttonGeneratePowerOfTwoStatistics);
-		panelSouth.add(getEmptyPanel());
+		panelSouth.add(buttonSharpImage);
 
 		this.add(panelSouth, BorderLayout.SOUTH);
 
 	}
 
-	private Component getEmptyPanel() {
-
-		JPanel response = new JPanel();
-		response.setBackground(Color.RED);
-		response.setOpaque(Boolean.TRUE);
-
-		return response;
-	}
+	// @Deprecated
+	// private Component getEmptyPanel() {
+	//
+	// JPanel response = new JPanel();
+	// response.setBackground(Color.RED);
+	// response.setOpaque(Boolean.TRUE);
+	//
+	// return response;
+	// }
 
 	public void showFrame() {
 
@@ -251,6 +254,12 @@ public class DisplayImage extends JFrame implements ActionListener {
 
 			ShowStatisticsDialog dialog = new ShowStatisticsDialog(frequencies);
 			dialog.setVisible(Boolean.TRUE);
+		}
+
+		else if (o.equals(buttonSharpImage)) {
+
+			imagePanel.setBufferedimage(Utils.sharpenImage(bufferedImage));
+			imagePanel.repaint();
 		}
 
 	}

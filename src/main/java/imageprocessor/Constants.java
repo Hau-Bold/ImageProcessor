@@ -24,5 +24,6 @@ public class Constants {
 
 	public static final String[] ComboBoxItems = { NONE, SUB, UP, AVERAGE2, AVERAGE3, AVERAGE4, AVERAGE5, AVERAGE6,
 			AVERAGE7, AVERAGE8, PAETH };
+	public static final String SHARP_IMAGE = "Sharp";
 
 }

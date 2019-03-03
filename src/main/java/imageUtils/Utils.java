@@ -2,6 +2,9 @@ package imageUtils;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -1177,6 +1180,14 @@ public class Utils {
 		result = Math.abs(M - lowerBound) > Math.abs(M - upperBound) ? upperBound : lowerBound;
 
 		return result;
+	}
+
+	public static BufferedImage sharpenImage(BufferedImage bufferedImage) {
+
+		Kernel kernel = new Kernel(3, 3, new float[] { -1, -1, -1, -1, 9, -1, -1, -1, -1 });
+		BufferedImageOp op = new ConvolveOp(kernel);
+		// TODO Auto-generated method stub
+		return op.filter(bufferedImage, null);// if dest=null, a bufferedimage is created
 	}
 
 }
